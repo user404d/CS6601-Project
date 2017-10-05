@@ -1,0 +1,8 @@
+# build directories #
+#####################
+
+build/
+results/
+src/GCParser/generated_files/
+dist/
+*~
