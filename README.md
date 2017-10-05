@@ -2,11 +2,16 @@
 
 ### Authors
 
-Sai Sruti
-Akshatha Bhat
-Quincy Conduff
+- Sai Sruti
+- Akshatha Bhat
+- Quincy Conduff
 
 ## Installation
+
+#### Requirements
+
+- Java `>=7`
+- Ant `>=1.10`
 
 ```bash
 git clone https://github.com/user404d/CS6601-Project.git
@@ -22,3 +27,13 @@ ant archive
 ```
 
 Verify the output in `results/alice.out` and `results/bob.out`
+
+
+## Millionaire Circuit
+
+```plain
+.input a 1 32
+.input b 2 32
+yao gteu a b
+.output yao
+```
