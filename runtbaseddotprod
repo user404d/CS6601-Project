@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-DOTPRODUCT=dotproduct.cir
+DOTPRODUCT=tbaseddotprod.cir
 ALICE=test/alice_vector
 BOB=test/bob_vector
 
