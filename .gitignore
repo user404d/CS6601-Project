@@ -5,4 +5,6 @@ build/
 results/
 src/GCParser/generated_files/
 dist/
+__pycache__/
+tbaseddotprod.cir
 *~
