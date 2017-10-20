@@ -34,8 +34,8 @@ Verify the output in `results/alice.out` and `results/bob.out`
 ### Millionaire Circuit
 
 ```plain
-.input a 1 32
-.input b 2 32
+.input a 1 <input bit width>
+.input b 2 <input bit width>
 yao gteu a b
 .output yao
 ```
