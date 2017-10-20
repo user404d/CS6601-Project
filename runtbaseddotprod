@@ -4,6 +4,8 @@ DOTPRODUCT=tbaseddotprod.cir
 ALICE=test/alice_vector
 BOB=test/bob_vector
 
+mkdir -p results
+
 python -m dotproduct "$1" "$2" "$3"
 
 java -ea -cp dist/GCParser.jar:extlibs/jargs.jar:extlibs/commons-io-1.4.jar Test.TestGCParserServer -f "$DOTPRODUCT" -p "$BOB" -w 80 > results/bob.out &

@@ -4,6 +4,8 @@ MILLIONAIRE=millionaire.cir
 ALICE=test/alice
 BOB=test/bob
 
+mkdir -p results
+
 echo "a $1" > test/alice
 echo "b $2" > test/bob
 
