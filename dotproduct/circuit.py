@@ -2,6 +2,18 @@ from math import log2, ceil
 
 
 def bit_table(si, ti, n, out):
+    '''
+    Generates a lookup table for the bits in the given vector components.
+    The format of the table is as follows:
+
+    <v><i>b<j> select <v><i> <j> <j+1>
+    .
+    .
+    .
+
+    jth bit of component i in vector v where b acts as a
+    lexical separator.
+    '''
     for j in range(n):
         sij = "{}b{}".format(si, j)
         tij = "{}b{}".format(ti, j)
@@ -10,6 +22,13 @@ def bit_table(si, ti, n, out):
 
 
 def and_1_to_n(si, tij, n, out):
+    '''
+    Takes vector component si and performs bitwise AND with bit tij.
+    Returns the label of the variable which contains the resulting bits
+    concatenated together.
+
+    sib(n-1)^tibj || sib(n-2)^tibj || ... || sib1^tibj || sib0^tibj
+    '''
     si_tij_label = "{}{}".format(si, tij)
     si_tij_bits = []
     for j in range(n):
@@ -23,6 +42,10 @@ def and_1_to_n(si, tij, n, out):
 
 
 def flat_adder(partials, n, offset, out):
+    '''
+    Performs a summation on a list of partial values of the same bit width.
+    Returns the label of the variable containing the sum.
+    '''
     sum_inst = "sum{} add {} 0:{}".format(
         offset, partials[0], n)
     print(sum_inst, file=out)
@@ -35,6 +58,10 @@ def flat_adder(partials, n, offset, out):
 
 
 def multiplier(si, ti, n, offset, out):
+    '''
+    Performs unsigned multiplication between two integers of the same bit width.
+    Returns the label of the variable containing the result.
+    '''
     partials = []
     bit_table(si, ti, n, out)
     for j in range(n):
@@ -50,6 +77,10 @@ def multiplier(si, ti, n, offset, out):
 
 
 def widening_adder(partials, bit_width, out):
+    '''
+    Widens each value before performing summation.
+    Returns the label of the variable and the final bit width of the resulting sum.
+    '''
     height = ceil(log2(len(partials)))
     final_width = 2 * bit_width + height
     widened_partials = []

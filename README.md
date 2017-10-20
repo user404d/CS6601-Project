@@ -25,8 +25,8 @@ ant archive
 ### Yao's Millionaire
 
 ```bash
-# ./runmillionaire <Value of Alice> <Value of Bob>
-./runmillionaire 123 23
+# ./runmillionaire <bit width> <Value of Alice> <Value of Bob>
+./runmillionaire 10 123 23
 ```
 
 Verify the output in `results/alice.out` and `results/bob.out`
@@ -71,10 +71,27 @@ Verify the output in `results/alice.out` and `results/bob.out`
 
 The circuit is generated each time for the specified domain size `R` (ie. bit width of vector components), number of dimensions `D`, and threshold `T`. The general structure of the generated circuit is as follows:
 
-- Multiply corresponding components from each vector (ie. `s0 * t0`)
-  1. Compute partial products
-  2. Add all partial products together
-- Add all intermediate products into scalar (ie. `(s0 * t0) + ... + (sn * tn) = u`)
-- Compare scalar result to threshold (ie. `u < T`)
+- Multiply corresponding components from each vector `si * ti`
 
-The final scalar value of the dotproduct will have at most `2 * R + ceiling(log_2(D))` bits so the threshold must be widened to allow for the comparison.
+  1. Compute partial products `si * tij`
+      - For each bit `tij` in `ti` perform bitwise `AND` with `tij` and each bit in `si`
+      - Concatenate the resulting bits together. \
+        (ie. `si(n-1)^tij || si(n-2)^tij || ... || si0^tij`)
+      - Shift the result to the left by `j` bits. `j` is from `tij`. \
+        (ie. `j = 2 -> si^tij || 00`)
+      - Zero extend by `R - j` bits. \
+        (ie. `R = 4, j = 2 -> 00 || si^tij || 00`)
+
+  2. Add all partial products together \
+    (ie. `si * ti = (si * ti0) + (si * ti1) ... + (si * ti(n-1)`)
+
+- Add all intermediate products into scalar \
+(ie. `(s0 * t0) + ... + (sn * tn) = u`)
+
+  1. Zero extend each value by `ceiling(log_2(D))` bits.
+  2. Add widened values together.
+
+- Compare scalar result to threshold \
+(ie. `u < T`)
+
+  - Both values should be bit width `2 * R + ceiling(log_2(D))`.
