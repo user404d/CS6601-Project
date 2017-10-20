@@ -4,10 +4,15 @@ MILLIONAIRE=millionaire.cir
 ALICE=test/alice
 BOB=test/bob
 
+echo ".input a 1 $1
+.input b 2 $1
+yao gteu a b
+.output yao" > "$MILLIONAIRE"
+
 mkdir -p results
 
-echo "a $1" > test/alice
-echo "b $2" > test/bob
+echo "a $2" > "$ALICE"
+echo "b $3" > "$BOB"
 
 java -ea -cp dist/GCParser.jar:extlibs/jargs.jar:extlibs/commons-io-1.4.jar Test.TestGCParserServer -f "$MILLIONAIRE" -p "$BOB" -w 80 > results/bob.out &
 sleep 0.8
