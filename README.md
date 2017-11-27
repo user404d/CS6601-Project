@@ -12,7 +12,7 @@
 
 - Java `>=7`
 - Ant `>=1.10`
-- Python `>=3.6.0`
+- Python `2` or `3`
 
 ```bash
 git clone https://github.com/user404d/CS6601-Project.git
