@@ -1,4 +1,5 @@
-from math import log2, ceil
+from __future__ import print_function, division
+from math import log, ceil
 
 
 def bit_table(si, ti, n, out):
@@ -53,7 +54,7 @@ def flat_adder(partials, n, offset, out):
         cur, prev = i + offset, i - 1 + offset
         sum_inst = "sum{} add sum{} {}".format(cur, prev, partials[i])
         print(sum_inst, file=out)
-    sum_label = sum_inst.split(sep=" ")[0]
+    sum_label = sum_inst.split(" ")[0]
     return sum_label
 
 
@@ -81,7 +82,7 @@ def widening_adder(partials, bit_width, out):
     Widens each value before performing summation.
     Returns the label of the variable and the final bit width of the resulting sum.
     '''
-    height = ceil(log2(len(partials)))
+    height = int(ceil(log(len(partials), 2)))
     final_width = 2 * bit_width + height
     widened_partials = []
     for partial in partials:
